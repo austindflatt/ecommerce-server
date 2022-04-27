@@ -3,6 +3,7 @@ const app = express();
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require('cors');
+const http = require('http');
 const authRoute = require('./routes/auth');
 // const usersRoute = require('./routes/users');
 const productsRoute = require('./routes/products');
@@ -29,6 +30,6 @@ app.use('/api/auth', authRoute);
 app.use('/api/products', productsRoute);
 // app.use('/api/transactions', transactionsRoute);
 
-app.listen(port, () => {
-	console.log('Server is running...')
-})
+app.set('port', port);
+const server = http.createServer(app);
+server.listen(port);
