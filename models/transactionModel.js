@@ -4,7 +4,7 @@ const TransactionSchema = new mongoose.Schema({
 	cart: [{ type: mongoose.Schema.ObjectId, ref: "product" }],
 	total: { type: String, required: true },
 	user: { type: mongoose.Schema.ObjectId, ref: "user" },
-	completed: { type: Boolean }
+	completed: { type: Boolean, default: false }
 }, { timestamps: true })
 
 module.exports = mongoose.model("transaction", TransactionSchema);
