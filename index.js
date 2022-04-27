@@ -30,6 +30,6 @@ app.use('/api/auth', authRoute);
 app.use('/api/products', productsRoute);
 // app.use('/api/transactions', transactionsRoute);
 
-app.set('port', port);
-const server = http.createServer(app);
+
+let server = http.createServer(app);
 server.listen(port);
