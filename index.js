@@ -30,6 +30,6 @@ app.use('/api/auth', authRoute);
 app.use('/api/products', productsRoute);
 // app.use('/api/transactions', transactionsRoute);
 
-
-let server = http.createServer(app);
-server.listen(port);
+app.listen(port, () => {
+	console.log('Server is running...')
+})
