@@ -7,9 +7,8 @@ const UserSchema = new mongoose.Schema({
 	email: { type: String, required: true, unique: true },
 	password: { type: String, required: true },
 	profilePic: { type: String, default: '' },
-	transactionHistory: { type: String },
 	isAdmin: { type: Boolean, default: false },
-  transactionHistory: { type: mongoose.Schema.ObjectId, ref: "transaction" }
+	transactionHistory: [{ type: mongoose.Schema.ObjectId, ref: "transaction" }]
 }, { timestamps: true })
 
-module.exports = mongoose.model("User", UserSchema);
+module.exports = mongoose.model("user", UserSchema);
