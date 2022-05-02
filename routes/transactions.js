@@ -35,4 +35,18 @@ router.post('/checkout', verify, async (req, res) => {
   }
 });
 
+// GET ALL TRANSACTIONS
+router.get('/', verify, async (req, res) => {
+  if(req.user.isAdmin){
+    try {
+      const transactions = await Transaction.find();
+      return res.status(200).json(transactions.reverse());
+    } catch (error) {
+      res.status(500).json(error)
+    }
+  } else {
+    res.status(403).json("You do not have permission!")
+  }
+});
+
 module.exports = router;
