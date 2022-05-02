@@ -6,21 +6,21 @@ const { verify } = require('./verifyToken');
 
 // CREATE TRANSACTION
 router.post('/checkout', verify, async (req, res) => {
-  const { user, total, completed } = req.body;
+  const { user, total, cart, completed } = req.body;
+
   if(req.user) {
     try {
-      const foundUser = await User.findOne({ user });
-      // Create new Object
-      let newTransaction = new Transaction({
-        transactionId: null,
-        user: user,
-        creationDate: new Date().toISOString(),
+      const foundUser = await User.findOne({ _id: user });
+
+      const newTransaction = new Transaction({
+        user: foundUser._id,
+        cart: cart,
         total: total,
         completed: completed
       })
-      let savedTransaction = await newTransaction.save();
+      const savedTransaction = await newTransaction.save();
 
-      foundUser.transactionHistory.push(savedTransaction.transactionId);
+      foundUser.transactionHistory.push(savedTransaction.id);
 
       await foundUser.save();
 
