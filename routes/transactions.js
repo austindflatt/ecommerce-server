@@ -10,7 +10,7 @@ router.post('/checkout', verify, async (req, res) => {
 
   if(req.user) {
     try {
-      const foundUser = await User.findOne({ _id: user });
+      const foundUser = await User.findById(user);
 
       const newTransaction = new Transaction({
         user: foundUser._id,
