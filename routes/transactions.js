@@ -11,7 +11,7 @@ router.post('/checkout', verify, async (req, res) => {
   if(req.user) {
     try {
       const foundUser = await User.findById(user);
-
+      console.log(req.body)
       const newTransaction = new Transaction({
         user: foundUser._id,
         cart: cart,
