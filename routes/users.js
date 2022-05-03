@@ -40,7 +40,8 @@ router.delete('/delete/:id', verify, async (req, res) => {
 // GET USERS
 router.get('/find/:id', async (req, res) => {
   try {
-    const user = await User.findById(req.params.id);
+    const user = await User.findById(req.params.id)
+    .populate('transaction');
     const { password, email, ...info } = user._doc;
     res.status(200).json({ message: 'User Info', info });
   } catch (error) {
