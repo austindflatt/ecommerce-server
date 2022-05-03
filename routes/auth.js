@@ -29,7 +29,7 @@ router.post('/register', async (req, res) => {
 // LOGIN
 router.post('/login', async (req, res) => {
   try {
-    const user = await User.findOne({ email: req.body.email });
+    const user = await User.findOne({ email: req.body.email }).populate('transactionHistory');
     !user && res.status(401).json({ message: 'Email and Password do not match' });
     
     const bytes = CryptoJS.AES.decrypt(user.password, process.env.SECRET_KEY);
