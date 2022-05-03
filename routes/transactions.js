@@ -11,7 +11,6 @@ router.post('/checkout', verify, async (req, res) => {
   if(req.user) {
     try {
       const foundUser = await User.findById(user);
-      console.log(req.body)
       const newTransaction = new Transaction({
         user: foundUser._id,
         cart: cart,
@@ -46,6 +45,18 @@ router.get('/', verify, async (req, res) => {
     }
   } else {
     res.status(403).json("You do not have permission!")
+  }
+});
+
+// DELETE TRANSACTION
+router.delete('/delete/:id', verify, async (req, res) => {
+  if(req.user.isAdmin){
+    try {
+      const deletedTransaction = await Transaction.findByIdAndDelete(req.params.id);
+      res.status(200).json({ message: 'Transaction deleted successfully', payload: deletedTransaction });
+    } catch (error) {
+      res.status(500).json(error);
+    }
   }
 });
 
