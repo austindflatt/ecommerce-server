@@ -23,8 +23,9 @@ router.post('/create', verify, async (req, res) => {
 router.put('/update/:id', verify, async (req, res) => {
   if(req.user.isAdmin){
     try {
-      const updatedProduct = await Product.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true });
-      return res.status(200).json(updatedProduct);
+      await Product.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true });
+      const allProducts = await Product.find();
+      return res.status(200).json(allProducts);
     } catch (error) {
       return res.status(500).json(error)
     }
